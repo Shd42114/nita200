@@ -1,3 +1,4 @@
+from pathlib import Path
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,15 +16,19 @@ st.write(
 )
 
 uploaded_file = st.file_uploader(
-    "Upload the SageMaker prediction CSV",
+    "Upload another SageMaker prediction CSV (optional)",
     type=["csv"]
 )
 
-if uploaded_file is None:
+default_file = Path("canvas_predictions.csv")
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+elif default_file.exists():
+    df = pd.read_csv(default_file)
+else:
     st.info("Please upload the SageMaker prediction CSV to start.")
     st.stop()
-
-df = pd.read_csv(uploaded_file)
 
 required_columns = [
     "GRE Score",
