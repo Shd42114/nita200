@@ -150,7 +150,7 @@ with left:
         index=["Student"]
     )
 
-    st.bar_chart(prediction_chart)
+st.progress(prediction, text=f"Predicted Chance of Admit: {prediction:.1%}")
 
 with right:
     st.subheader("Selected Student Inputs")
